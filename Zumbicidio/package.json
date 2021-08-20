@@ -39,8 +39,5 @@
     "**/{aura|lwc}/**": [
       "eslint"
     ]
-  },
-  "dependencies": {
-    "sfdx": "^1.4.2"
   }
 }
