@@ -1,0 +1,52 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes"
+  access="global"
+  controller="GerenciaBunkersController"
+>
+  <aura:attribute name="lista_bunkers" type="List" default="" />
+  <aura:attribute name="lista_criaturas" type="List" default="" />
+  <aura:attribute name="bunker_id" type="String" />
+  <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+  <lightning:card variant="Narrow" title="Bunkers" iconName="custom:custom9">
+    <p class="slds-p-horizontal_small">
+      {! v.bunker_id}
+      <lightning:combobox
+        name="listaBunbers"
+        label="Seleciona Bunker"
+        value=""
+        placeholder="Selecione um bunker"
+        options="{! v.lista_bunkers}"
+        onchange="{! c.bunkerChange}"
+      />
+    </p>
+
+    <p class="slds-p-horizontal_small">
+      <lightning:listView
+        aura:id="lvCriaturas"
+        objectApiName="Criatura__c"
+        listName="lista_criaturas"
+        rows="5"
+        showSearchBar="false"
+        showActionBar="false"
+        enableInlineEdit="true"
+        showRowLevelActions="false"
+      />
+    </p>
+
+    <aura:set attribute="footer">
+      <lightning:button
+        variant="brand"
+        label="Adicionar Criatura"
+        title="Clique para adicionar uma criatura"
+        onClick=""
+      />
+      <lightning:button
+        variant="brand"
+        label="Remover Criatura"
+        title="Clique para remover as criaturas selecionadas"
+        onClick=""
+      />
+    </aura:set>
+  </lightning:card>
+</aura:component>

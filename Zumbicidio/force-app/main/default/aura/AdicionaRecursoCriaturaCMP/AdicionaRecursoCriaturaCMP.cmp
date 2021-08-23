@@ -1,0 +1,37 @@
+<aura:component
+  controller="AdicionaRecursosCriaturaCMPController"
+  access="global"
+  implements="flexipage:availableForRecordHome,force:hasRecordId"
+>
+  <aura:attribute name="lista_recursos" type="List" default="" />
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute name="recurso_selecionado" type="String" />
+  <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+  <lightning:card
+    variant="Narrow"
+    title="Adiciona Recursos"
+    iconName="custom:custom9"
+  >
+    <p class="slds-p-horizontal_small">
+      {! v.recordId}
+      <lightning:combobox
+        name="listaRecursos"
+        label="Seleciona Recursos"
+        value="inProgress"
+        placeholder="Selecione um recurso"
+        options="{! v.lista_recursos}"
+        onchange="{! c.handleChange}"
+      />
+    </p>
+
+    <aura:set attribute="footer">
+      <lightning:button
+        variant="brand"
+        label="Adicionar"
+        title="Clique para adicionar"
+        onClick="{! c.salvar}"
+      />
+    </aura:set>
+  </lightning:card>
+</aura:component>
