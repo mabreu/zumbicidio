@@ -6,13 +6,13 @@ trigger CriaturaTrigger on Criatura__c(
   // Identificar os bunkers
   Map<id, Bunker__c> bunkers = new Map<id, Bunker__c>();
 
-  for (Criatura__c cr : Trigger.new) {
+  for (Criatura__c nova : Trigger.new) {
     //System.debug('Funcionou.');
-    Criatura__c antiga = Trigger.oldMap.get(cr.id);
+    Criatura__c antiga = Trigger.oldMap.get(nova.id);
 
-    if (cr.bunker__c != antiga.bunker__c) {
-      if (cr.bunker__c != null) {
-        bunkers.put(cr.bunker__c, new Bunker__c(id = cr.bunker__c));
+    if (nova.bunker__c != antiga.bunker__c) {
+      if (nova.bunker__c != null) {
+        bunkers.put(nova.bunker__c, new Bunker__c(id = nova.bunker__c));
       }
 
       if (antiga.bunker__c != null) {
