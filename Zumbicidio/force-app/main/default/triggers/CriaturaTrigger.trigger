@@ -11,6 +11,7 @@ trigger CriaturaTrigger on Criatura__c(
   Map<Id, RecursoBunker__c> recs_bunker; // Recursos de um bunker específico
   Criatura__c antiga;
 
+  // Percorre a lista de criaturas
   for (Criatura__c nova : Trigger.new) {
     if (Trigger.oldMap == null) {
       // Inserção
@@ -20,11 +21,13 @@ trigger CriaturaTrigger on Criatura__c(
     }
 
     if (nova.bunker__c != antiga.bunker__c) {
+      // Se o bunker foi alterado
       if (nova.bunker__c != null) {
         bunkers.put(nova.bunker__c, new Bunker__c(id = nova.bunker__c));
         recs_bunker = rb_update.get(nova.bunker__c);
 
         if (recs_bunker == null) {
+          // Não encontrou na lista
           // Pega os recursos atuais do bunker
           List<RecursoBunker__c> recursos_bunker = [
             SELECT id, bunker__c, recurso__c, quantidade__c
@@ -45,6 +48,7 @@ trigger CriaturaTrigger on Criatura__c(
           WHERE Criatura__c = :nova.id
         ];
 
+        // Varre a lista de recursos da criatura
         for (RecursosCriatura__c rc : recursos_criatura) {
           RecursoBunker__c rb = recs_bunker.get(rc.recurso__c);
 
@@ -66,11 +70,13 @@ trigger CriaturaTrigger on Criatura__c(
       }
 
       if (antiga.bunker__c != null) {
+        // Guarda o bunker para recalculo
         bunkers.put(antiga.bunker__c, new Bunker__c(id = antiga.bunker__c));
       }
     }
   }
 
+  // Se for exclusão
   for (Criatura__c cr : Trigger.old) {
     if (Trigger.isDelete && cr.bunker__c != null) {
       bunkers.put(cr.bunker__c, new Bunker__c(id = cr.bunker__c));
@@ -88,7 +94,7 @@ trigger CriaturaTrigger on Criatura__c(
     bunkers.get(bk.id).populacao__c = bk.Criaturas__r.size();
   }
 
-  // Atualizar os bunkers
+  // Atualizar os bunkers e seus recursos
   update bunkers.values();
   delete rc_delete;
 
