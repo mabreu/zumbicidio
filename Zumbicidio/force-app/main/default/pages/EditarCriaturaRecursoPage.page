@@ -1,8 +1,42 @@
-<apex:page renderAs="pdf" standardController="Criatura__c">
-  <!-- Begin Default Content REMOVE THIS -->
-  <h1>Congratulations</h1>
-  This is your new Page
-  <!-- End Default Content REMOVE THIS -->
-  <br />
-  {! Criatura__c.Name }
+<apex:page
+  standardController="Criatura__c"
+  extensions="EditarCriaturaRecursoPageExtension"
+>
+  <apex:form>
+    <apex:pageBlock title="Tela de edição de criaturas e recursos">
+      <apex:pageMessages />
+
+      <apex:pageBlockButtons>
+        <apex:commandButton value="Voltar ao registro" action="{! cancelar }" />
+        <apex:commandButton value="Salvar dados" action="{! save }" />
+      </apex:pageBlockButtons>
+
+      <apex:pageBlockSection
+        title="Informações da criatura: {! Criatura__c.Name }"
+      >
+        <apex:inputField value="{! Criatura__c.Name }" />
+        <apex:inputField value="{! Criatura__c.Idade__c }" />
+        <apex:inputField value="{! Criatura__c.Bunker__c }" />
+      </apex:pageBlockSection>
+
+      <apex:pageBlockSection title="Editar recursos da criatura">
+        <apex:dataTable
+          value="{! Criatura__c.RecursosCriatura__r }"
+          var="recurso"
+        >
+          <apex:column>
+            <apex:inputField value="{! recurso.Recurso__c }" />
+          </apex:column>
+
+          <apex:column>
+            <apex:inputField value="{! recurso.quantidade__c }" />
+          </apex:column>
+
+          <apex:column>
+            <apex:inputField value="{! recurso.AcrescimoDefesa__c }" />
+          </apex:column>
+        </apex:dataTable>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
 </apex:page>
