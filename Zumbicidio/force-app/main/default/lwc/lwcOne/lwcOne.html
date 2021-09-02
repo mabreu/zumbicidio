@@ -6,7 +6,11 @@
       alternative-text="Show More"
       slot="actions"
     ></lightning-button-icon>
-    <p class="slds-p-horizontal_small">{recordId} {name}</p>
+    Qualquer coisa
+
+    <template if:true={bunker.data}>
+      <p class="slds-p-horizontal_small">{recordId} {name}</p>
+    </template>
 
     <lightning-input
       name="input-01"
