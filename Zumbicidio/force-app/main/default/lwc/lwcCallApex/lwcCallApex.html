@@ -1,3 +1,9 @@
 <template>
-  <c-lwc-call-apex-with-callback> </c-lwc-call-apex-with-callback>
+  <lightning-card title="Hello">
+    <lightning-button label="New" slot="actions"></lightning-button>
+
+    <p class="slds-p-horizontal_small">
+      <c-lwc-child herois-dados={herois}> </c-lwc-child>
+    </p>
+  </lightning-card>
 </template>

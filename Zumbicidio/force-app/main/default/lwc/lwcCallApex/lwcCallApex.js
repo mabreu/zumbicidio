@@ -1,15 +1,9 @@
-import { LightningElement, wire } from "lwc";
+import { LightningElement, wire, api } from "lwc";
 import getHerois from "@salesforce/apex/CalloutToSalesForce.getHeroisBootcamp3";
 
-const columns = [
-  { label: "Nome do herói", fieldName: "nome" },
-  { label: "Nível do Herói", fieldName: "nivel", type: "string" },
-  { label: "Total de habilidades", fieldName: "total", type: "number" }
-];
-
 export default class LwcCallApex extends LightningElement {
-  data = [];
-  columns = columns;
+  @api
+  herois = [];
 
   // @wire(getHerois)
   // response;
@@ -18,14 +12,37 @@ export default class LwcCallApex extends LightningElement {
   // 	return this.response.herois;
   // }
 
-  @wire(getHerois)
-  wiredRecord({ error, data }) {
-    if (data) {
-      console.log(data);
-      this.data = data.herois;
-    } else if (error) {
-      console.log(error);
-    }
+  /*
+      Wire: Mais prático porém menos flexível
+    */
+
+  // @wire( getHerois )
+  // wiredRecord({ error, data }) {
+  //     if( data ) {
+  //         console.log(data);
+  //         this.herois = data.herois;
+  //     } else if (error) {
+  //         console.log(error);
+  //     }
+  // }
+
+  /*
+      Then/Catch: Mais flexível porém mais trabalhoso
+    */
+
+  connectedCallback() {
+    alert("connectedCallback");
+    getHerois()
+      .then((result) => {
+        console.log(result);
+        this.herois = result.herois;
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        console.log("finally");
+      });
   }
 
   // get herois() {
