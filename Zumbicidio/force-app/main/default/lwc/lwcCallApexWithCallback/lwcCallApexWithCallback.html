@@ -1,0 +1,20 @@
+<template>
+  <lightning-card
+    variant="Narrow"
+    title="Lista de heróis"
+    icon-name="standard:account"
+  >
+    <lightning-button-icon
+      icon-name="utility:down"
+      variant="border-filled"
+      alternative-text="Show More"
+      slot="actions"
+    ></lightning-button-icon>
+    <p class="slds-p-horizontal_small">
+      <template if:true={data}>
+        <lightning-datatable key-field="id" data={data} columns={columns}>
+        </lightning-datatable>
+      </template>
+    </p>
+  </lightning-card>
+</template>
