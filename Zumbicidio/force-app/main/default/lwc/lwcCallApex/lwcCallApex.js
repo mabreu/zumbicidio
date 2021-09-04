@@ -13,8 +13,8 @@ export default class LwcCallApex extends LightningElement {
   // }
 
   /*
-      Wire: Mais prático porém menos flexível
-    */
+		Wire: Mais prático porém menos flexível
+		*/
 
   // @wire( getHerois )
   // wiredRecord({ error, data }) {
@@ -27,8 +27,8 @@ export default class LwcCallApex extends LightningElement {
   // }
 
   /*
-      Then/Catch: Mais flexível porém mais trabalhoso
-    */
+		Then/Catch: Mais flexível porém mais trabalhoso
+	*/
 
   connectedCallback() {
     alert("connectedCallback");
